@@ -92,7 +92,15 @@ body {
   font-family: 'Fira Sans Condensed', 'Fira Sans', sans-serif;
   margin: 0;
 }
-body > header,
+body > header {
+  align-items: center;
+  background: black;
+  color: white;
+  display: grid;
+  grid-gap: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+}
 body > footer {
   align-items: center;
   background: black;
@@ -109,7 +117,7 @@ body > header img {
   max-height: 5rem;
 }
 body > header h1 {
-  font-size: 1.5rem;
+  font-size: 3rem;
   font-weight: 600;
 }
 body > header h2 {
