@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>atoMEC: an open-source average-atom Python code</title>
+    <link rel="stylesheet" href="poster.css">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1">
+    <!-- Based on a poster template from https://github.com/cpitclaudel/academic-poster-template -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+    
+    <style type="text/css">
+      html { font-size: 1.15rem }
+    </style>
+  </head>
+
+  <body vocab="http://schema.org/" typeof="ScholarlyArticle">
+    <header role="banner">
+      <aside>
+	<a href="https://github.com/atomec-project/atoMEC"><img src="logos/atoMEC_horizontal1.png" alt="atoMEC logo" style="width:200px"></a>
+      </aside>
+      <div>
+	<h1 property="headline">atoMEC: an open-source average-atom Python code</h1>
+        <address>
+	  <a property="author">Timothy Callow<sup>1,2</sup></1,2>, Daniel Kotik<sup>1,2</sup></1,2>, Eli Kraisler<sup>3</sup></3> and Attila Cangi<sup>1,2</sup></1,2>
+<br />  <sup>1</sup><a property="sourceOrganization">Center for Advanced Systems Understanding (CASUS)</1>
+<br />  <sup>2</sup><a property="sourceOrganization">Helmholtz-Zentrum Dresden-Rossendorf (HZDR)</2>
+<br />  <sup>3</sup><a property="sourceOrganization">Fritz Haber Center for Molecular Dynamics, Hebrew University of Jerusalem</3>
+</address>
+<span class="publication-info">
+  <span property="publisher">Unpublished</span>,
+  <time pubdate property="datePublished" datetime="2020-09-08">September 8, 2020</time>
+</span>
+</div>
+<aside>
+  <a href="https://www.casus.science/"><img style="background: black; width:200px" src="logos/Logo_CASUS_weiss.svg" alt="CASUS logo"></a>
+</aside>
+</header>
+
+<! -- Adam is really cool and he made this slider and I owe him a couple of beers -->
+<main property="articleBody">
+
+
+
+
+  <article>
+    <header><h3>Micro-summary</h3></header>
+
+    <ul>
+      <li><strong> Average-atom </strong> models are a crucial tool in modelling the <strong> warm dense matter </strong> regime
+      <li>Average-atom models are <strong> computationally efficient </strong> and (relatively) <strong> simple to develop </strong>
+      <li>We present <strong>atoMEC</strong>: an open-source average <strong>ato</strong>m Python code for studying <strong>M</strong>atter under <strong>E</strong>xtreme <strong>C</strong>onditions
+      <li>The aim of atoMEC is to make average-atom models more <strong>accessible</strong>, through its open-source nature and choice of pure Python as the programming language
+      <li>We discuss the <strong>structure</strong> of the code in this poster and corresponding paper
+      <li>We also describe how the Python scientific stack (NumPy, SciPy, joblib and mendeleev) has facilitated the development of atoMEC
+    </ul>
+
+  </article>
+
+  <article><header><h3>What is warm dense matter?</h3></header>
+
+    <figure>
+      <img src="figures/WDM_figure.svg" width="350" alt="Figure depicting the temperatures and densities spanned by the warm dense matter regime, and some examples of wardm dense matter such as white dwarfs" style="width:350px">
+
+    </figure>
+
+      <ul>
+	<li>Warm dense matter (WDM) is characterized by temperatures of \(\sim 10^3 - 10^6 \) K and densities of \(\sim 10^{-2} - 10^4 \) g cm\(^{-3}\)</li>
+	<li>It lies somewhere between the domains of condensed-matter physics (CMP) and classical plasmas</li>
+	<li>Examples of warm dense matter include various astro-physical phenomena, planetary science, and inertial confinement fusion (ICF)</li>
+      </ul>    
+  </article>
+
+</article>
+
+
+
+
+<article>
+  <header><h3>What is an average-atom model?</h3></header>
+
+    <body>
+
+      <div>
+
+	<div class="pictures" style="min-height: 230px; position: relative">
+	  <img id="picture1" src="figures/voronoi_AA.svg"       width="250" style="position: absolute; clip: rect(0px,0px,auto,auto)" alt="Figure visualizing the average-atom concept"></img>
+	  <img id="picture2" src="figures/voronoi_MB.svg"   width="250" style="position: absolute; clip: rect(0px,auto,auto,0px)" alt="Figure depecting a many-body system of interacting electrons and nuclei"></img>
+	</div >
+
+	<input
+	  type="range"
+	  min="0"
+	  max="100"
+	  value="0"
+	  class="slider"
+	  id="Range1"
+	  style="width:250px"
+	  onmousemove="handleSlideRange(this)"
+	  >
+	<ul>
+	  <li>We want to model a system of many electrons and nuclei, which all interact with one another in a quantum mechanical way: <em>this is complicated</em>!
+	  <li>Average-atom models <strong>map</strong> this many body system to a <strong>single atom</strong> immersed in a plasma</li>
+	  <li>Drag the slider in the image above for a visual representation of this mapping!
+	</ul>
+      </div>
+    </body>
+
+</article>
+
+<article>
+  <header><h3>Structural markup</h3></header>
+
+  <p>The following markup is useful to structure content blocks:</p>
+  <ul>
+    <li>
+      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">p</a>&gt;</code>
+      <p style="margin: 0">Paragraphs</p>
+      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">p</a>&gt;</code>
+    </li>
+
+    <li>
+      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul">ul</a>&gt;</code>
+      <ul>
+	<li><code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">li</a>&gt;</code>…<code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">li</a>&gt;</code></li>
+      </ul>
+      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul">ul</a>&gt;</code> (Plain lists)
+    </li>
+
+    <li>
+      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol">ol</a>&gt;</code>
+      <ol>
+	<li><code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">li</a>&gt;</code>…<code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">li</a>&gt;</code></li>
+      </ol>
+      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol">ol</a>&gt;</code> (Numbered lists)
+    </li>
+
+    <li>
+      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/b">b</a>&gt;</code>
+      <b>Call-outs (<i>alerts</i>)</b>
+      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/b">b</a>&gt;</code>
+    </li>
+  </ul>
+</article>
+
+<article>
+  <header><h3>Inline markup</h3></header>
+  <ul>
+    <li>
+      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a</a> href="<var>url</var>"&gt;</code>
+      <a href="url">Links</a>
+      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a</a>&gt;</code>
+    </li>
+
+    <li>
+      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em">em</a>&gt;</code>
+      <em>Emphasized text</em>
+      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em">em</a>&gt;</code>
+    </li>
+
+    <li>
+      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong">strong</a>&gt;</code>
+      <strong>Important text</strong>
+      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong">strong</a>&gt;</code>
+    </li>
+
+    <li>
+      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i">i</a>&gt;</code>
+      <i>Scientific terms, foreign words</i>
+      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i">i</a>&gt;</code>
+    </li>
+
+    <li>
+      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var">var</a>&gt;</code>
+      <var>Math variables, placeholders</var>
+      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var">var</a>&gt;</code>
+    </li>
+  </ul>
+
+  <b>Not sure which one to use? Check out <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i">Mozilla's explanations</a>.  Using appropriate markup helps screen readers a lot.</b>
+</article>
+
+<article>
+  <header><h3>Figures</h3></header>
+
+  <p>Use the following code to insert a figure:</p>
+
+  <pre>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure">figure</a>&gt;
+    <i>Figure contents:
+      images (&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">img</a>&gt;, &lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object">object</a>&gt;),
+      tables (&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table">table</a>&gt;),
+      quotes, …</i>
+    &lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figcaption">figcaption</a>&gt;<i>Figure caption</i>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figcaption">figcaption</a>&gt;
+    &lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure">figure</a>&gt;</pre>
+
+  <hr/>
+
+  <figure>
+    <img src="https://www.w3.org/html/logo/downloads/HTML5_Logo.svg" width="197" height="64" alt="An orange shield with a white 5 emblazoned on it and the letters HTML above it.">
+
+    <figcaption>The HTML5 logo (<i>Source: <a href="https://www.w3.org/html/logo/">W3C</a></i>)</figcaption>
+  </figure>
+</article>
+
+<article>
+  <header><h3>Images</h3></header>
+
+  <p>Use the following code to include an image:</p>
+
+  <pre class="justify-center">&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">img</a> src="<var>source url</var>"
+    alt="<var>image description</var>"&gt;</pre>
+
+  <p>Prefer scalable images (SVG) for technical drawings and figures.</p>
+
+  <small>Most technical drawing software supports saving as SVG; if yours does not, you can typically save to PDF, which can then easily be <a href="https://superuser.com/questions/381125/how-do-i-convert-an-svg-to-a-pdf-on-linux">converted to SVG</a> (this is useful for TikZ diagrams in particular).</small>
+
+  <p>Make sure to include an <code>alt</code> attribute: it will be read by assistive technology and displayed while the image is loading
+  </p>
+</article>
+
+
+<article>
+  <header><h3>Using this template</h3></header>
+
+  <body>
+
+
+    <figure>
+    <div class="slidecontainer">
+      <div><img src="figures/He_dos_1.svg" alt="" id="img_adam" width="350" style="width:350px"></div>
+      <div><input type="range" min="1" max="7" value="1" class="slider" id="Range2" style="width:350px"></div>
+      <div><p>Density: <span id="value"></span> g cm\(^{-3}\)</p></div>
+      <figcaption>Testing something</figcaption>
+   </figure>
+
+    </div>    
+
+    <script src="scripts/script1.js"></script>
+    <script src="scripts/script2.js"></script>
+
+
+
+
+  </body>
+
+</article>	      
+
+<article>
+  <header><h3>Mathematics</h3></header>
+
+  <p>This poster template loads <a href="https://www.mathjax.org/">MathJax</a> by default, so you can include inline math in backslash-parentheses <code>\( … \)</code> and display math in backslash-brackets <code>\[ … \]</code>:</p>
+
+  <p class="center">\((\lambda x. e) v \downarrow e[x/v]\) (β-reduction)</p>
+
+  \[\frac
+  {\langle \mathtt{expr}, s\rangle \Downarrow v}
+  {\langle \mathtt{var := expr}, s\rangle \downarrow s\left[\mathtt{var} \leftarrow v\right]}
+  \small{\text{Assign}}\]
+
+  <p>Using MathJax allows users of assistive technology to browse the equations.</p>
+</article>
+
+<article>
+  <header><h3>Additional styling</h3></header>
+
+  <p>The template's stylesheet defines a few extra CSS classes:</p>
+
+  <p class="boxed center"><code>.center</code><br/>
+    (horizontally centered text)</p>
+
+
+
+  
+  <p class="boxed justify-center"><code>.justify-center</code><br/>
+    (horizontally centered block)</p>
+
+  <div class="boxed center">
+    <div class="center columns" style="height: 3em">
+      <code style="align-self: start">.columns-top</code>
+      <code style="align-self: center">.columns-center</code>
+      <code style="align-self: end">.columns-bottom</code>
+    </div>
+    <span>(columns)</span>
+  </div>
+
+  <small>To customize column widths, use <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns"><code>grid-template-columns</code></a>; for example, for 40%/60% widths, use the following snippet:
+    <pre class="center">style="grid-template-columns: 40fr 60fr"</pre>
+  </small>
+</article>
+
+<figure style="flex-grow: 9999999">
+  <img style="width: 70%" src="logo.svg" alt="Project logo" />
+  <figcaption>A stand-alone figure to fill the remaining space.</figcaption>
+</figure>
+</main>
+
+<footer>
+  <address class="monospace">  <a href="https://github.com/atomec-project/atoMEC">https://github.com/atomec-project/atoMEC</a>
+  </address>
+  <address class="monospace">  t.callow@hzdr.de
+  </address>
+  <span class="credits">
+    Based on an <a href="https://github.com/cpitclaudel/academic-poster-template">open poster template</a>.
+  </span>
+</footer>
+</body>
+</html>
