@@ -54,7 +54,7 @@
       <li>We present <strong>atoMEC</strong>: an open-source average <strong>ato</strong>m Python code for studying <strong>M</strong>atter under <strong>E</strong>xtreme <strong>C</strong>onditions
       <li>The aim of atoMEC is to make average-atom models more <strong>accessible</strong>, through its open-source nature and choice of pure Python as the programming language
       <li>We discuss the <strong>structure</strong> of the code in this poster and corresponding paper
-      <li>We also describe how the Python scientific stack (NumPy, SciPy, joblib and mendeleev) has facilitated the development of atoMEC
+      <li>We also describe how the Python scientific stack (<a href="https://numpy.org/">NumPy</a>, SciPy, joblib and mendeleev) has facilitated the development of atoMEC
     </ul>
 
   </article>
@@ -112,75 +112,46 @@
 </article>
 
 <article>
-  <header><h3>Structural markup</h3></header>
+  <header><h3>Average-atom models: considerations</h3></header>
 
-  <p>The following markup is useful to structure content blocks:</p>
-  <ul>
-    <li>
-      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">p</a>&gt;</code>
-      <p style="margin: 0">Paragraphs</p>
-      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">p</a>&gt;</code>
-    </li>
+  An average-atom calculation typically requires the following considerations:
+  
+  <p class="boxed center">
+    <strong>Physical conditions</strong>
+    <p>What are the <strong>temperature</strong> and <strong>density</strong> of the system I want to simulate?
+  </p>
 
-    <li>
-      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul">ul</a>&gt;</code>
-      <ul>
-	<li><code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">li</a>&gt;</code>…<code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">li</a>&gt;</code></li>
-      </ul>
-      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul">ul</a>&gt;</code> (Plain lists)
-    </li>
+  <p class="boxed center">
+    <strong>Properties desired</strong>
+    <p>What properties do I want to know? For example, the pressure, ionization degree or conductivity.</p>
+  </p>
 
-    <li>
-      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol">ol</a>&gt;</code>
-      <ol>
-	<li><code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">li</a>&gt;</code>…<code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">li</a>&gt;</code></li>
-      </ol>
-      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol">ol</a>&gt;</code> (Numbered lists)
-    </li>
+  <p class="boxed center">
+    <strong>Model and approximations</strong>
+    <p>For example: What boundary conditions should I use? How should I treat delocalized electrons?</p>
+  </p>
 
-    <li>
-      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/b">b</a>&gt;</code>
-      <b>Call-outs (<i>alerts</i>)</b>
-      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/b">b</a>&gt;</code>
-    </li>
-  </ul>
+  <p class="boxed center">
+    <strong>Algorithms and numerics</strong>
+    <p>For example: What method should I use to solve the PDEs? How large should my numerical grid be?</p>
+  </p>  
+  
 </article>
 
+
 <article>
-  <header><h3>Inline markup</h3></header>
-  <ul>
-    <li>
-      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a</a> href="<var>url</var>"&gt;</code>
-      <a href="url">Links</a>
-      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a</a>&gt;</code>
-    </li>
+  <header><h3>Physical conditions: <code>atoMEC.Atom</code></h3></header>
 
-    <li>
-      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em">em</a>&gt;</code>
-      <em>Emphasized text</em>
-      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em">em</a>&gt;</code>
-    </li>
+  <p>In atoMEC, the choice of density and temperature is handled by the <a href="https://atomec-project.github.io/atoMEC/api/atoMEC.html#atoMEC.Atom"><code>atoMEC.Atom</code></a> class.</p>
 
-    <li>
-      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong">strong</a>&gt;</code>
-      <strong>Important text</strong>
-      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong">strong</a>&gt;</code>
-    </li>
+  <p>Consider Aluminium at its normal metallic density (2.7 g cm\(^{-3}\)) and room temperature (300 K). We initialize this as:</p>
 
-    <li>
-      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i">i</a>&gt;</code>
-      <i>Scientific terms, foreign words</i>
-      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i">i</a>&gt;</code>
-    </li>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">atoMEC</span> <span class="kn">import</span> <span class="n">Atom</span>
 
-    <li>
-      <code>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var">var</a>&gt;</code>
-      <var>Math variables, placeholders</var>
-      <code>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var">var</a>&gt;</code>
-    </li>
-  </ul>
+<span class="n">Al_atom</span> <span class="o">=</span> <span class="n">Atom</span><span class="p">(</span><span class="s2">&quot;Al&quot;</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="mf">2.7</span><span class="p">,</span>
+		<span class="n">units_temp</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">)</span>
+</pre></div>
 
-  <b>Not sure which one to use? Check out <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i">Mozilla's explanations</a>.  Using appropriate markup helps screen readers a lot.</b>
 </article>
 
 <article>
