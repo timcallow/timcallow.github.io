@@ -5,6 +5,6 @@ const handleSlideRange = (e) => {
     
     const ratio = e.value / 100
     
-    picture1.style.clip = `rect(0,${400 * ratio}px, auto, auto)`
-    picture2.style.clip = `rect(0px,auto,auto,${400 * ratio}px)`
+    picture1.style.clip = `rect(0,${250 * ratio}px, auto, auto)`
+    picture2.style.clip = `rect(0px,auto,auto,${250 * ratio}px)`
 };
