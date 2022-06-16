@@ -49,48 +49,38 @@
     <header><h3>Micro-summary</h3></header>
 
     <ul>
-      <li><strong> Average-atom </strong> models are a crucial tool in modelling the <strong> warm dense matter </strong> regime
-      <li>Average-atom models are <strong> computationally efficient </strong> and (relatively) <strong> simple to develop </strong>
-      <li>We present <strong>atoMEC</strong>: an open-source average <strong>ato</strong>m Python code for studying <strong>M</strong>atter under <strong>E</strong>xtreme <strong>C</strong>onditions
-      <li>The aim of atoMEC is to make average-atom models more <strong>accessible</strong>, through its open-source nature and choice of pure Python as the programming language
-      <li>We discuss the <strong>structure</strong> of the code in this poster and corresponding paper
-      <li>We also describe how the Python scientific stack (<a href="https://numpy.org/">NumPy</a>, SciPy, joblib and mendeleev) has facilitated the development of atoMEC
+      <li><strong> Average-atom </strong> models are a crucial tool in modelling the <strong> warm dense matter </strong> regime</li>
+      <li>Average-atom models are <strong> computationally efficient </strong> and (relatively) <strong> simple to develop </strong></li>
+      <li>We present <strong>atoMEC</strong>: an open-source average <strong>ato</strong>m Python code for <strong>M</strong>atter under <strong>E</strong>xtreme <strong>C</strong>onditions</li>
+      <li>The aim of atoMEC is to make average-atom models more <strong>accessible</strong></li>
+      <li>We discuss some background, the <strong>code structure</strong>, and some example <strong>capabilities</strong>
     </ul>
 
   </article>
 
   <article><header><h3>What is warm dense matter?</h3></header>
 
-    <figure>
-      <img src="figures/WDM_figure.svg" width="350" alt="Figure depicting the temperatures and densities spanned by the warm dense matter regime, and some examples of wardm dense matter such as white dwarfs" style="width:350px">
-
-    </figure>
-
-      <ul>
-	<li>Warm dense matter (WDM) is characterized by temperatures of \(\sim 10^3 - 10^6 \) K and densities of \(\sim 10^{-2} - 10^4 \) g cm\(^{-3}\)</li>
-	<li>It lies somewhere between the domains of condensed-matter physics (CMP) and classical plasmas</li>
-	<li>Examples of warm dense matter include various astro-physical phenomena, planetary science, and inertial confinement fusion (ICF)</li>
-      </ul>    
-  </article>
+    
+  <div>
+    <img src="figures/WDM_figure.svg" width="350" alt="Figure depicting the temperatures and densities spanned by the warm dense matter regime, and some examples of wardm dense matter such as white dwarfs" style="width:350px">
+    <br><br>
+	<ul>
+	  <li>Warm dense matter (WDM) lies somewhere between condensed matter physics (CMP) and plasma physics</li>
+	  <li>It is characterized by moderate to high temperatures and densities ranging from dense gases to highly compressed solids
+	  <li>There are many <strong>astrophysical</strong> and technological (e.g. <strong>inertial confinement fusion</strong> (ICF)) examples of warm dense matter
+	</ul>
+      </div>
+</p>
 
 </article>
 
-
-
-
-<article>
-  <header><h3>What is an average-atom model?</h3></header>
-
-    <body>
-
-      <div>
-
-	<div class="pictures" style="min-height: 230px; position: relative">
-	  <img id="picture1" src="figures/voronoi_AA.svg"       width="250" style="position: absolute; clip: rect(0px,0px,auto,auto)" alt="Figure visualizing the average-atom concept"></img>
-	  <img id="picture2" src="figures/voronoi_MB.svg"   width="250" style="position: absolute; clip: rect(0px,auto,auto,0px)" alt="Figure depecting a many-body system of interacting electrons and nuclei"></img>
-	</div >
-
-	<input
+<article><header><h3>What are average-atom models?</h3></header>      
+<div>
+      <div class="pictures" style="min-height: 230px; position: relative">
+	<img id="picture1" src="figures/voronoi_AA.svg"       width="250" style="position: absolute; clip: rect(0px,0px,auto,auto)" alt="Figure visualizing the average-atom concept"></img>
+	<img id="picture2" src="figures/voronoi_MB.svg"   width="250" style="position: absolute; clip: rect(0px,auto,auto,0px)" alt="Figure depecting a many-body system of interacting electrons and nuclei"></img>
+      </div >
+      <input
 	  type="range"
 	  min="0"
 	  max="100"
@@ -100,40 +90,43 @@
 	  style="width:250px"
 	  onmousemove="handleSlideRange(this)"
 	  onChange="handleSlideRange(this)"
-	  >
+	>
+      <br><br>
 	<ul>
-	  <li>We want to model a system of many electrons and nuclei, which all interact with one another in a quantum mechanical way: <em>this is complicated</em>!
-	  <li>Average-atom models <strong>map</strong> this many body system to a <strong>single atom</strong> immersed in a plasma</li>
-	  <li>Drag the slider in the image above for a visual representation of this mapping!
+	  <li>Average-atom models map the <strong> many-body</strong> system of electrons and nuclei to a <strong>single atom</strong> immersed in a plasma</li>
+	  <li>This massively reduces the computational complexity: typically, from hundreds of core hours to less than one
+	  <li>Drag the slider for a visualization of this mapping</li>
 	</ul>
-      </div>
-    </body>
+</div>
 
 </article>
 
 <article>
-  <header><h3>Average-atom models: considerations</h3></header>
+  <header><h3>Average-atom calculation: theory</h3></header>
+  <ul>
+    <li>The main step in an average-atom calculation is the minimization of the <strong>grand free energy</strong></li>
+    <li>This minimization follows an iterative process known as a <strong>self-consistent field</strong> procedure</li>
+    <li>This gives access to the electronic <strong>wave-functions</strong> and associated quantities such as their <strong>energies</strong> and the total electron <strong>density</strong></li>
+    <li>These can be used either directly or with some post-processing to calculate properties of interest such as the <strong>pressure</strong> or the <strong>ionization degree</strong></li>
+  </ul>
+</article>
 
-  An average-atom calculation typically requires the following considerations:
-  
+<article>
+  <header><h3>Average-atom calculation: considerations</h3></header>
+  The minimization of the grand free energy requires the following considerations:
   <p class="boxed center">
     <strong>Physical conditions</strong>
-    <p>What are the <strong>temperature</strong> and <strong>density</strong> of the system I want to simulate?
-  </p>
-
-  <p class="boxed center">
-    <strong>Properties desired</strong>
-    <p>What properties do I want to know? For example, the pressure, ionization degree or conductivity.</p>
+    <p>What is the <strong>temperature</strong> and the <strong>density</strong> of my material?</p>
   </p>
 
   <p class="boxed center">
     <strong>Model and approximations</strong>
-    <p>For example: What boundary conditions should I use? How should I treat delocalized electrons?</p>
+    <p>For example: What boundary conditions should I use? How should I treat delocalized (unbound) electrons?</p>
   </p>
 
   <p class="boxed center">
     <strong>Algorithms and numerics</strong>
-    <p>For example: What method should I use to solve the PDEs? How large should my numerical grid be?</p>
+    <p>For example: How large should my grid be? How should I solve the differential equations?</p>
   </p>  
   
 </article>
@@ -142,82 +135,116 @@
 <article>
   <header><h3>Physical conditions: <code>atoMEC.Atom</code></h3></header>
 
+  <div>
   <p>In atoMEC, the choice of density and temperature is handled by the <a href="https://atomec-project.github.io/atoMEC/api/atoMEC.html#atoMEC.Atom"><code>atoMEC.Atom</code></a> class.</p>
+<br>
+  <p>Consider Aluminium at its normal metallic density (2.7 g cm\(^{-3}\)) and room temperature (300 K):</p>
 
-  <p>Consider Aluminium at its normal metallic density (2.7 g cm\(^{-3}\)) and room temperature (300 K). We initialize this as:</p>
+<div class="highlight"><pre><span>  
+<span class="n">Al_atom</span> <span class="o">=</span> <span class="n">atoMEC.Atom</span><span class="p">(</span>
+    <span class="s2">&quot;Al&quot;</span><span class="p">,</span>
+    <span class="mi">300</span><span class="p">,</span>
+    <span class="n">density</span><span class="o">=</span><span class="mf">2.7</span><span class="p">,</span>
+    <span class="n">units_temp</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+<br>
+<p>We use the <a href="https://mendeleev.readthedocs.io/en/stable/" >mendeleev</a> library to get the atomic properties.
+</div>
+</article>
 
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">atoMEC</span> <span class="kn">import</span> <span class="n">Atom</span>
+<article>
+  <header><h3>Model and approximations: <code>atoMEC.models</code></h3></header>
 
-<span class="n">Al_atom</span> <span class="o">=</span> <span class="n">Atom</span><span class="p">(</span><span class="s2">&quot;Al&quot;</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="mf">2.7</span><span class="p">,</span>
-		<span class="n">units_temp</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">)</span>
+  <div>
+    <p>An "ion-sphere" model is invoked with the <a href="https://atomec-project.github.io/atoMEC/api/atoMEC.html#atoMEC.models.ISModel"><code>atoMEC.models.ISModel</code></a> class.</p>
+    <br>
+  <p>Suppose we choose the "neumann" boundary condition and "quantum" treatment for delocalized (unbound) electrons:</p>
+
+<div class="highlight"><pre><span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">atoMEC.models</span><span class="o">.</span><span class="n">ISModel</span><span class="p">(</span>
+    <span class="n">Al_atom</span><span class="p">,</span>
+    <span class="n">bc</span><span class="o">=</span><span class="s2">&quot;neumann&quot;</span><span class="p">,</span>
+    <span class="n">unbound</span><span class="o">=</span><span class="s2">&quot;quantum&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 
-</article>
+<br>
+<p>The choice of exchange-correlation functionals (see corresponding paper) is handled by the <a href="https://tddft.org/programs/libxc/">LIBXC</a> library.</p>
+</div>
 
-<article>
-  <header><h3>Figures</h3></header>
-
-  <p>Use the following code to insert a figure:</p>
-
-  <pre>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure">figure</a>&gt;
-    <i>Figure contents:
-      images (&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">img</a>&gt;, &lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object">object</a>&gt;),
-      tables (&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table">table</a>&gt;),
-      quotes, …</i>
-    &lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figcaption">figcaption</a>&gt;<i>Figure caption</i>&lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figcaption">figcaption</a>&gt;
-    &lt;/<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure">figure</a>&gt;</pre>
-
-  <hr/>
-
-  <figure>
-    <img src="https://www.w3.org/html/logo/downloads/HTML5_Logo.svg" width="197" height="64" alt="An orange shield with a white 5 emblazoned on it and the letters HTML above it.">
-
-    <figcaption>The HTML5 logo (<i>Source: <a href="https://www.w3.org/html/logo/">W3C</a></i>)</figcaption>
-  </figure>
-</article>
-
-<article>
-  <header><h3>Images</h3></header>
-
-  <p>Use the following code to include an image:</p>
-
-  <pre class="justify-center">&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">img</a> src="<var>source url</var>"
-    alt="<var>image description</var>"&gt;</pre>
-
-  <p>Prefer scalable images (SVG) for technical drawings and figures.</p>
-
-  <small>Most technical drawing software supports saving as SVG; if yours does not, you can typically save to PDF, which can then easily be <a href="https://superuser.com/questions/381125/how-do-i-convert-an-svg-to-a-pdf-on-linux">converted to SVG</a> (this is useful for TikZ diagrams in particular).</small>
-
-  <p>Make sure to include an <code>alt</code> attribute: it will be read by assistive technology and displayed while the image is loading
-  </p>
 </article>
 
 
 <article>
-  <header><h3>Using this template</h3></header>
+  <header><h3>Algorithms and numerics: <code>ISModel.CalcEnergy</code></h3></header>
 
-  <body>
+    <div>
+      The minimization of the grand free energy is handled by the <a href="https://atomec-project.github.io/atoMEC/api/atoMEC.html#atoMEC.models.ISModel.CalcEnergy"><code>ISModel.CalcEnergy</code></a> function.
+      <br><br>
+      
+    Suppose we want the 3 lowest-energy orbitals in the "n" and "l" directions (these denote quantum numbers), with a grid size of 1500 points:
 
+<div class="highlight"><pre><span>
+<span class="n">atoMEC.config</span><span class="o">.</span><span class="n">numcores</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">SCF_out</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">CalcEnergy</span><span class="p">(</span>
+    <span class="mi">3</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">,</span>
+    <span class="n">grid_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ngrid&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+<br>
+      We use <a href="">SciPy</a> (<code>scipy.sparse</code>) to find the eigenvalues, <a href="">joblib</a> for parallelization, and SciPy and <a href="">NumPy</a> for various other tasks (root finding, integration, ...).
+    </div>
+</article>
 
+<article>
+
+  <header><h3>Case-study: metallization of Helium</h3></header>
+
+  <ul>
+    <li>In the outer layers of <strong>white dwarfs</strong>, Helium is expected to transition from <strong>insulating</strong> to <strong>metallic</strong> behaviour</li>
+    <li>The conditions for this transition (\(\sim 10-100\)kK, \(\sim 1-30\) g cm\(^{-3}\))  are a typical example of warm dense matter</li>
+    <li>We can model this transition with an average-atom model</li>
+    <li>The key quantity is the so-called electronic <strong>band-gap</strong>: a gap in the permitted energy range for the electrons </li>
+  </ul>
+
+</article>
+
+<article>
+  <header><h3>Helium density-of-states</h3></header>
+
+<div>
     <figure>
     <div class="slidecontainer">
-      <div><img src="figures/He_dos_1.svg" alt="" id="img_adam" width="350" style="width:350px"></div>
-      <div><input type="range" min="1" max="7" value="1" class="slider" id="Range2" style="width:350px"></div>
+      <div><img src="figures/He_dos_1.svg" alt="" id="img_adam" width="350" style="width:350px"></img></div>
+      <div><input type="range" min="1" max="7" value="1" class="slider" id="Range2" style="width:350px"></input></div>
       <div><p>Density: <span id="value"></span> g cm\(^{-3}\)</p></div>
-      <figcaption>Testing something</figcaption>
+    </div>          
    </figure>
+   <br>
+   <ul>
+     <li>The <strong>density-of-states</strong> shows the permitted electron energy ranges</li>
+     <li>Drag the slider to see the band-gap narrow as density-increases</li>
+     <li>Insulator-to-metallic transition happens when band-gap disappears</li>
+   </ul>
+   </br>
+</div>
 
-    </div>    
+  <script src="scripts/script1.js"></script>
+  <script src="scripts/script2.js"></script>
 
-    <script src="scripts/script1.js"></script>
-    <script src="scripts/script2.js"></script>
+  
 
+</article>
 
-
-
-  </body>
-
-</article>	      
+<article>
+    <header><h3>Helium: band-gap and ionization</h3></header>
+    <figure>
+      <div><img src="figures/He_bg.svg" alt="" width="350" style="width:350px"></img></div>
+   </figure>
+  
+</article>
 
 <article>
   <header><h3>Mathematics</h3></header>
@@ -269,7 +296,7 @@
 </main>
 
 <footer>
-  <address class="monospace">  <a href="https://github.com/atomec-project/atoMEC">https://github.com/atomec-project/atoMEC</a>
+  <address class="monospace">  <a href="https://arxiv.org/abs/2206.01074">arXiv:2206.01074</a>
   </address>
   <address class="monospace">  t.callow@hzdr.de
   </address>
