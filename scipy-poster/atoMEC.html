@@ -25,9 +25,9 @@
 	<h1 property="headline">atoMEC: an open-source average-atom Python code</h1>
         <address>
 	  <a property="author">Timothy Callow<sup>1,2</sup></1,2>, Daniel Kotik<sup>1,2</sup></1,2>, Eli Kraisler<sup>3</sup></3> and Attila Cangi<sup>1,2</sup></1,2>
-<br />  <sup>1</sup><a property="sourceOrganization">Center for Advanced Systems Understanding (CASUS)</1>
-<br />  <sup>2</sup><a property="sourceOrganization">Helmholtz-Zentrum Dresden-Rossendorf (HZDR)</2>
-<br />  <sup>3</sup><a property="sourceOrganization">Fritz Haber Center for Molecular Dynamics, Hebrew University of Jerusalem</3>
+<br />  <sup>1</sup><a property="sourceOrganization">Center for Advanced Systems Understanding (CASUS), D-02826 Görlitz, Germany</1>
+<br />  <sup>2</sup><a property="sourceOrganization">Helmholtz-Zentrum Dresden-Rossendorf (HZDR), D-01328 Dresden, Germany</2>
+<br />  <sup>3</sup><a property="sourceOrganization">Fritz Haber Center for Molecular Dynamics, Hebrew University of Jerusalem, 9091401 Jerusalem, Israel</3>
 </address>
 <span class="publication-info">
   <span property="publisher">Unpublished</span>,
@@ -51,18 +51,21 @@
     <ul>
       <li><strong> Average-atom </strong> models are a crucial tool in modelling the <strong> warm dense matter </strong> regime</li>
       <li>Average-atom models are <strong> computationally efficient </strong> and (relatively) <strong> simple to develop </strong></li>
-      <li>We present <strong>atoMEC</strong>: an open-source average <strong>ato</strong>m Python code for <strong>M</strong>atter under <strong>E</strong>xtreme <strong>C</strong>onditions</li>
+      <li>We present <strong>atoMEC</strong>: an open-source average-<strong>ato</strong>m Python code for <strong>M</strong>atter under <strong>E</strong>xtreme <strong>C</strong>onditions</li>
       <li>The aim of atoMEC is to make average-atom models more <strong>accessible</strong></li>
       <li>We discuss some background, the <strong>code structure</strong>, and some example <strong>capabilities</strong>
     </ul>
 
+    <p class="boxed center">Poster hint: change zoom to optimize layout</p>
+
   </article>
 
   <article><header><h3>What is warm dense matter?</h3></header>
-
     
-  <div>
-    <img src="figures/WDM_figure.svg" width="350" alt="Figure depicting the temperatures and densities spanned by the warm dense matter regime, and some examples of wardm dense matter such as white dwarfs" style="width:350px">
+    <div>
+      <figure>
+	<img src="figures/WDM_figure.svg" width="350" alt="Figure depicting the temperatures and densities spanned by the warm dense matter regime, and some examples of wardm dense matter such as white dwarfs" style="width:350px">
+   </figure>
     <br><br>
 	<ul>
 	  <li>Warm dense matter (WDM) lies somewhere between condensed matter physics (CMP) and plasma physics</li>
@@ -94,8 +97,8 @@
       <br><br>
 	<ul>
 	  <li>Average-atom models map the <strong> many-body</strong> system of electrons and nuclei to a <strong>single atom</strong> immersed in a plasma</li>
-	  <li>This massively reduces the computational complexity: typically, from hundreds of core hours to less than one
-	  <li>Drag the slider for a visualization of this mapping</li>
+	  <li>This massively reduces the <strong>computational complexity</strong>: typically, from hundreds of core hours to less than one
+	  <li>Drag the slider to visualize this mapping</li>
 	</ul>
 </div>
 
@@ -170,7 +173,7 @@
 </pre></div>
 
 <br>
-<p>The choice of exchange-correlation functionals (see corresponding paper) is handled by the <a href="https://tddft.org/programs/libxc/">LIBXC</a> library.</p>
+<p>The choice of exchange-correlation functionals (see corresponding <a href="https://arxiv.org/abs/2206.01074">paper</a>) is handled by the <a href="https://tddft.org/programs/libxc/">LIBXC</a> library.</p>
 </div>
 
 </article>
@@ -183,10 +186,11 @@
       The minimization of the grand free energy is handled by the <a href="https://atomec-project.github.io/atoMEC/api/atoMEC.html#atoMEC.models.ISModel.CalcEnergy"><code>ISModel.CalcEnergy</code></a> function.
       <br><br>
       
-    Suppose we want the 3 lowest-energy orbitals in the "n" and "l" directions (these denote quantum numbers), with a grid size of 1500 points:
+      Suppose we want the 3 lowest-energy orbitals in the "n" and "l" directions (these denote quantum numbers), with a grid size of 1500 points:
+      <br><br>
 
-<div class="highlight"><pre><span>
-<span class="n">atoMEC.config</span><span class="o">.</span><span class="n">numcores</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">atoMEC</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="n">config</span><span class="o">.</span><span class="n">numcores</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># parallelize over all cores</span>
 <span class="n">SCF_out</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">CalcEnergy</span><span class="p">(</span>
     <span class="mi">3</span><span class="p">,</span>
     <span class="mi">3</span><span class="p">,</span>
@@ -194,13 +198,13 @@
 <span class="p">)</span>
 </pre></div>
 <br>
-      We use <a href="">SciPy</a> (<code>scipy.sparse</code>) to find the eigenvalues, <a href="">joblib</a> for parallelization, and SciPy and <a href="">NumPy</a> for various other tasks (root finding, integration, ...).
+      We use <a href="https://scipy.org/">SciPy</a> (<code>scipy.sparse</code>) to find the eigenvalues, <a href="https://joblib.readthedocs.io/en/latest/">joblib</a> for parallelization, and SciPy and <a href="https://numpy.org/">NumPy</a> for various other tasks (root finding, integration, ...).
     </div>
 </article>
 
 <article>
 
-  <header><h3>Case-study: metallization of Helium</h3></header>
+  <header><h3>Case-study: metallization of helium</h3></header>
 
   <ul>
     <li>In the outer layers of <strong>white dwarfs</strong>, Helium is expected to transition from <strong>insulating</strong> to <strong>metallic</strong> behaviour</li>
@@ -212,7 +216,7 @@
 </article>
 
 <article>
-  <header><h3>Helium density-of-states</h3></header>
+  <header><h3>Helium metallization: density-of-states</h3></header>
 
 <div>
     <figure>
@@ -225,8 +229,8 @@
    <br>
    <ul>
      <li>The <strong>density-of-states</strong> shows the permitted electron energy ranges</li>
-     <li>Drag the slider to see the band-gap narrow as density-increases</li>
-     <li>Insulator-to-metallic transition happens when band-gap disappears</li>
+     <li>Drag the slider to see the band-gap narrow as density increases (at fixed temperature 50 kK)</li>
+     <li>Insulator-to-metallic transition happens when band-gap <strong>vanishes</strong></li>
    </ul>
    </br>
 </div>
@@ -239,60 +243,41 @@
 </article>
 
 <article>
-    <header><h3>Helium: band-gap and ionization</h3></header>
+    <header><h3>Helium metallization: band-gap and ionization</h3></header>
     <figure>
       <div><img src="figures/He_bg.svg" alt="" width="350" style="width:350px"></img></div>
-   </figure>
+    </figure>
+
+    <ul>
+      <li>At 50 kK, the band-gap decreases linearly with density and closes at 5.5 g cm\(^{-3}\)</li>
+      <li>The <strong>ionization fraction</strong> - the fraction of delocalized (free) electrons - increases with density</li>
+      <li>This also correlates with higher conductivity</li>
+    </ul>
   
 </article>
 
-<article>
-  <header><h3>Mathematics</h3></header>
-
-  <p>This poster template loads <a href="https://www.mathjax.org/">MathJax</a> by default, so you can include inline math in backslash-parentheses <code>\( … \)</code> and display math in backslash-brackets <code>\[ … \]</code>:</p>
-
-  <p class="center">\((\lambda x. e) v \downarrow e[x/v]\) (β-reduction)</p>
-
-  \[\frac
-  {\langle \mathtt{expr}, s\rangle \Downarrow v}
-  {\langle \mathtt{var := expr}, s\rangle \downarrow s\left[\mathtt{var} \leftarrow v\right]}
-  \small{\text{Assign}}\]
-
-  <p>Using MathJax allows users of assistive technology to browse the equations.</p>
-</article>
 
 <article>
-  <header><h3>Additional styling</h3></header>
+    <header><h3>Useful links</h3></header>
 
-  <p>The template's stylesheet defines a few extra CSS classes:</p>
-
-  <p class="boxed center"><code>.center</code><br/>
-    (horizontally centered text)</p>
-
-
-
+    <ul>
+      <li>atoMEC <a href="https://github.com/atomec-project/atoMEC">source code</a> and <a href="https://atomec-project.github.io/atoMEC/">documentation</a>: contributions welcome!</li>
+      <li> <strong>Papers</strong>:
+	<ol>
+	  <li>Corresponding paper for this poster: <a href="https://arxiv.org/abs/2206.01074">arXiv:2206.01074</a></li>
+	  <li>First-principles derivation of an average-atom model: <a href="https://doi.org/10.1103/PhysRevResearch.4.023055">	10.1103/physrevresearch.4.023055</a></li>
+	  <li>Mean ionization state comparisons: <a href="https://arxiv.org/abs/2203.05863">arXiv:2203.05863</a></li>
+	</ol>
+      </li>
+      <li>Introductory <a href="https://github.com/atomec-project/notebooks/blob/main/Try_me.ipynb">notebook</a> for atoMEC</li>
+      <li><a href="https://github.com/atomec-project/Helium-white-dwarfs">Repository</a> for the helium band-gap calculations</li>
+      <li>More information about <a href="https://www.lanl.gov/projects/dense-plasma-theory/background/warm-dense-matter.php">warm dense matter</a> and our research at <a href="https://www.casus.science/research/matter-under-extreme-conditions/">CASUS</a></li>
+    </ul>
+    
   
-  <p class="boxed justify-center"><code>.justify-center</code><br/>
-    (horizontally centered block)</p>
-
-  <div class="boxed center">
-    <div class="center columns" style="height: 3em">
-      <code style="align-self: start">.columns-top</code>
-      <code style="align-self: center">.columns-center</code>
-      <code style="align-self: end">.columns-bottom</code>
-    </div>
-    <span>(columns)</span>
-  </div>
-
-  <small>To customize column widths, use <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns"><code>grid-template-columns</code></a>; for example, for 40%/60% widths, use the following snippet:
-    <pre class="center">style="grid-template-columns: 40fr 60fr"</pre>
-  </small>
 </article>
 
-<figure style="flex-grow: 9999999">
-  <img style="width: 70%" src="logo.svg" alt="Project logo" />
-  <figcaption>A stand-alone figure to fill the remaining space.</figcaption>
-</figure>
+
 </main>
 
 <footer>
